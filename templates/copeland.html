@@ -1,7 +1,74 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+<h3 align="center">COPELAND</h3>
+<form id="alternatifForm">
+  <label for="jumlahAlternatif">Masukkan jumlah alternatif: </label><br>
+  <input type="number" id="jumlahAlternatif" name="jumlahAlternatif" min="1">
+  <button type="button" onclick="generateTable()">Generate</button>
+</form>
+<br>
+1. Membuat Tabel Preferensi	
+<table class="borda-matrix1">
+  <thead>
+    <tr>
+      <th rowspan="2">Alternatif</th>
+      <th colspan="5">Peringkat</th>
+    </tr>
+    <tr>
+      <th>EDAS&nbsp;</th>
+      <th>Electre</th>
+      <th>MABAC&nbsp;</th>
+      <th>AHP &nbsp;&nbsp;&nbsp;</th>
+      <th>Fuzzy&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- Baris-baris alternatif akan di-generate di sini -->
+  </tbody>
+</table>
+<button type="button" onclick="bandingkan()">Bandingkan</button>
 
+<br>
+<br>
+2. Membuat Tabel Perbandingan Berpasangan		
+<table class="borda-matrix2">
+  <thead>
+    <tr>
+      <th rowspan="2">Alternatif</th>
+      <th colspan="6">Peringkat</th>
+    </tr>
+    <tr>
+      <th>EDAS</th>
+      <th>Electre</th>
+      <th>MABAC</th>
+      <th>AHP</th>
+      <th>Fuzzy</th>
+      <th>Pemenang</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody2">
+    <!-- Baris-baris alternatif akan di-generate di sini -->
+  </tbody>
+</table>
+
+<br>
+3. Menghitung Copeland Score melalui pengurangan frekuensi kemenangan dengan frekuensi kekalahan dan 
+Menentukan Peringkat 					
+<table class="borda-matrix3">
+  <thead>
+    <tr>
+      <th rowspan="1">Alternatif</th>
+      <th colspan="1">Skor</th>
+      <th colspan="1">Peringkat</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody3">
+    <!-- Baris-baris alternatif akan di-generate di sini -->
+  </tbody>
+</table>
 
 <script src="../static/js/copeland.js"></script>
+
 {% endblock %}

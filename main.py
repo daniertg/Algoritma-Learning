@@ -93,41 +93,44 @@ def result():
 def view_borda():
     return render_template("borda.html")
 
+def calculate_borda_score(alternatif_names, frequencies, bobot_peringkat):
+    results = []
+
+    for i in range(len(frequencies)):
+        frequency = frequencies[i]
+        bobot = bobot_peringkat[i]
+
+        skor = sum([freq * bobot for freq, bobot in zip(frequency, bobot)])
+
+        result = {
+            'Alternatif Name': alternatif_names[i],
+            'Skor': skor
+        }
+        results.append(result)
+
+    return results
 
 @app.route('/post_borda', methods=['POST'])
 def post_borda():
-    data = request.json
-    initial_matrix = data['initialMatrix']
-    weight_matrix = data['weightMatrix']
+    alternatif_names = request.form.getlist('alternatifNames[]')
+    frequencies = [json.loads(freq) for freq in request.form.getlist('frequencies[]')]
+    bobot_peringkat_raw = request.form.getlist('bobotPeringkat[]')
 
-    # Panggil fungsi untuk mengalikan matriks
-    result = multiply_matrices(initial_matrix, weight_matrix)
+    # Mengubah string JSON kembali menjadi list/array
+    bobot_peringkat = [json.loads(item) for item in bobot_peringkat_raw]
 
-    if result is None:
-        return jsonify({"error": "Ukuran matriks tidak cocok"}), 400
+    # Lakukan perhitungan Borda dengan fungsi calculate_borda_score
+    data_to_process = calculate_borda_score(alternatif_names, frequencies, bobot_peringkat)
+    
+    # Ubah data_to_process ke format yang diharapkan oleh JavaScript
+    result = [{'Alternatif Name': item['Alternatif Name'], 'Skor': item['Skor']} for item in data_to_process]
 
-    # Contoh respons balik ke klien (JavaScript) dengan hasil perhitungan
-    return jsonify({"message": "Data diterima dan disimpan di server.", "result": result})
+    return jsonify({'message': 'success', 'result': result})
 
 
-def multiply_matrices(initial_matrix, weight_matrix):
-    result_matrix = []
-
-    # Pastikan ukuran initial_matrix dan weight_matrix sama
-    if len(initial_matrix) != len(weight_matrix):
-        return None  # Atau sesuaikan dengan penanganan error yang sesuai
-
-    for i in range(len(initial_matrix)):
-        row_result = []
-        for j in range(len(initial_matrix[i])):
-            multiplied_value = initial_matrix[i][j] * weight_matrix[j]
-            row_result.append(multiplied_value)
-        result_matrix.append(row_result)
-
-    return result_matrix
-
+    
 @app.route('/copeland')
-def view_borda():
+def view_copeland():
     return render_template("copeland.html")
 
 if __name__ == "__main__":

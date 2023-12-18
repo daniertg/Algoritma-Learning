@@ -1,51 +1,58 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<h1>BORDA</h1>
-<div class="electre-form">
-    <table class="top-electre-form">
-        <tr>
-            <td>
-                <div>
-                    <span class="title-electre-form">Masukan jumlah Alternatif :</span>
-                    <table>
-                        <tr>
-                            <td><input type="number" min=2 value=2 id="row" onchange="change_matrix_shape()"></td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <hr>
-    <h4 class="h4-borda">Alternatif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Peringkat</h4>
-    <table class="buttom-electre-form" id="initial-matrix">
-        <!-- Initial matrix inputs will be generated here -->
-    </table>
-    
-    <span class="title-electre-form">Masukan bobot :
-    </span>
-    <table class="buttom-electre-form" id="weight-matrix">
-        <!-- Weight matrix inputs will be generated here -->
-    </table>
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+<h3 align="center">BORDA</h3>
+<form id="alternatifForm">
+  <label for="jumlahAlternatif">Masukkan jumlah alternatif: </label><br>
+  <input type="number" id="jumlahAlternatif" name="jumlahAlternatif" min="1">
+  <button type="button" onclick="generateTable()">Generate</button>
+</form><br>
+1. Menginput total peringkat setiap alternatif
+<table class="borda-matrix">
+  <thead>
+    <tr>
+      <th rowspan="2">Alternatif</th>
+      <th colspan="5">Peringkat</th>
+    </tr>
+    <tr>
+      <th>EDAS</th>
+      <th>Electre</th>
+      <th>MABAC</th>
+      <th>AHP</th>
+      <th>Fuzzy</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- Baris-baris alternatif akan di-generate di sini -->
+  </tbody>
+</table>
+<button type="button" onclick="calculateValues()">Calculate</button>
+<br>
+<div id="result"></div>
+<br>
+2. Memberikan bobot peringkat<br>
+<button type="button" onclick="borda_bobot()">Buat Tabel Bobot</button>
+<table class="peringkat_borda">
+  <thead>
+    <tr id="headerRow">
+      <th></th>
+      <!-- Kolom Ke-n akan ditambahkan di sini -->
+    </tr>
+  </thead>
+  <tbody id="tablePeringkat">
+    <!-- Baris-baris alternatif dan input peringkat akan di-generate di sini -->
+  </tbody>
+</table>
+<br>
+3. Menentukan peringkat dan skor BORDA<br>
+<button type="button" onclick="save()">Borda Skor</button>
 
-    <button type="submit" onclick="calculate()">Calculate</button>
-</div>
+<!-- Tabel untuk menampilkan hasil -->
+<table id="bordaScores">
 
-<p class="electre-result-title" style="display: none;">Result</p>
-<div class="electre-result" style="display: none;">
-    <span class="title-electre-form" colspan="3">A. Borda Score</span>
-    <div class="flexed">
-        <table class="borda-matrix">
-            <tr>
-                <th>Altenatif</th>
-                <th>Skor</th>
-                <th>Rank</th>
-            </tr>
-            <!-- Data akan ditambahkan di sini dinamis dari JavaScript -->
-        </table>
-    </div>
-</div>
+</table>
 
-  <script src="../static/js/borda.js"></script>
+<script src="../static/js/borda.js"></script>
+
 {% endblock %}

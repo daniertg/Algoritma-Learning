@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table Input</title>
+  <style>
+    /* Tambahkan gaya CSS jika diperlukan */
+  </style>
+</head>
+<body>
+
+<table class="table" id="myTable">
+  <thead>
+    <tr>
+      <th rowspan="2">Alternatif</th>
+      <th colspan="4">Peringkat</th>
+    </tr>
+    <tr>
+      <th>Households</th>
+      <th>Government</th>
+      <th>Investments</th>
+      <th>Export</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>c</td>
+      <td>gi</td>
+      <td>i<sub>1</sub></td>
+      <td>X<sub>1</sub></td>
+    </tr>
+    <!-- Tambahkan baris-baris lain di sini -->
+  </tbody>
+</table>
+
+<script>
+  // Ambil semua elemen td dalam tbody
+  const tbodyCells = document.querySelectorAll('tbody td');
+
+  // Ubah setiap sel dalam tbody menjadi elemen input
+  tbodyCells.forEach(cell => {
+    const input = document.createElement('input');
+    input.value = cell.innerText; // Isi nilai input dengan teks dari sel
+    cell.innerText = ''; // Hapus teks dari sel
+    cell.appendChild(input); // Tambahkan elemen input ke dalam sel
+  });
+</script>
+
+</body>
+</html>

@@ -170,7 +170,7 @@ a.article, a.article:hover {
     ELECTRE FORM
 ----------------------------------------------------- */
 
-.buttom-electre-form input[type="number"] {
+/* .buttom-electre-form input[type="number"] {
     width: 64px;
 }
 
@@ -255,17 +255,17 @@ a.article, a.article:hover {
 
 .top-electre-form {
     width: 100%;
-}
+} */
 
 
 /* ---------------------------------------------------
     PNG TO JPG
 ----------------------------------------------------- */
 
-h1 {
+/* h1 {
     font-size: 24px;
     font-weight: bold;
-    margin: 20px 0; /* Add 20px of margin below the heading */
+    margin: 20px 0; 
   }
   
   form {
@@ -300,7 +300,7 @@ input[type="file"] {
     margin-top: 10px;
   }
   
-  /* Result styles */
+
   .result {
     margin-top: 20px;
     text-align: center;
@@ -318,19 +318,19 @@ input[type="file"] {
     line-height: 1.5;
   }
   
-  /* Download link styles */
+
   .download-link {
     color: #6d7fcc;
     font-weight: bold;
-  }
+  } */
 
 
-/* ---------------------------------------------------
+/* /* ---------------------------------------------------
     Caesar Cipher
 ----------------------------------------------------- */
 
 /* Style for the entire page */
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #f7f7f7;
     margin: 0;
@@ -338,35 +338,33 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
+} */
 
 /* Style for the form container */
-form {
+/* .form_cipher {
     width: 100%;
     max-width: 500px;
     background-color: #fff;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
+} */
 
 /* Style for the heading */
-h1 {
+/* h1 {
     color: #333;
     text-align: center;
     margin-bottom: 30px;
 }
 
-/* Style for input fields */
-/* Style for input fields and labels */
 label {
     display: block;
     margin-bottom: 8px;
     color: #555;
-    font-weight: bold; /* Added font weight for better visibility */
-}
+    font-weight: bold; /* Added font weight for better visibility 
+} */
 
-input[type="text"],
+/* input[type="text"],
 input[type="number"] {
     width: calc(100% - 16px);
     padding: 12px;
@@ -375,21 +373,20 @@ input[type="number"] {
     border: 2px solid #3498db;
     border-radius: 4px;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s; /* Added box-shadow transition */
-}
+    transition: border-color 0.3s, box-shadow 0.3s; 
+} */
 
-input[type="text"]:focus,
+/* input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: #6d7fcc;
-    box-shadow: 0 0 10px rgba(109, 127, 204, 0.5); /* Added box-shadow on focus */
-}
-
-/* Style for radio buttons */
+    box-shadow: 0 0 10px rgba(109, 127, 204, 0.5); 
+} */
+/* 
 input[type="radio"] {
     margin-right: 8px;
-    appearance: none; /* Hide the default radio button */
+    appearance: none; 
     border: 2px solid #3498db;
-    border-radius: 50%; /* Make it a circle */
+    border-radius: 50%; 
     width: 16px;
     height: 16px;
     display: inline-block;
@@ -398,11 +395,10 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked {
-    background-color: #6d7fcc; /* Change background on checked */
+    background-color: #6d7fcc;
     border-color: #6d7fcc;
 }
 
-/* Style for the submit button */
 input[type="submit"] {
     background-color: #6d7fcc;
     color: #fff;
@@ -414,48 +410,42 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #445580; /* Darken the color on hover */
-}
+    background-color: #445580;
+} 
 
-/* Style for the result */
+
 h4 {
     color: #333;
     margin-top: 20px;
     text-align: center;
 }
 
-/* Additional styles for a more modern look */
-form {
+
+.form_cipher {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: left;
 }
 
-/* Responsive design for smaller screens */
 @media screen and (max-width: 500px) {
     form {
         padding: 20px;
     }
-}
+} */
 
-/*  borda */
-.h4-borda{
-   margin-left: -950px;
-}
-.ke_borda{
-    margin-top: 500px;
-}
+
 .borda-matrix {
-    width: 100%;
+    width: 10%;
     border-collapse: collapse;
 }
 
 .borda-matrix th,
 .borda-matrix td {
-    border: 1px solid #ddd;
+    border: 2px solid #0a0a0a;
     padding: 8px;
     text-align: center;
+    width: 10px;
 }
 
 .borda-matrix th {
@@ -471,11 +461,107 @@ form {
     background-color: #f2f2f2;
 }
 
-/* Contoh penyesuaian gaya untuk teks warna hitam */
 .borda-matrix th,
 .borda-matrix td {
     color: black;
 }
 
+.table_a {
+    border-collapse: collapse;
+    font-family: sans-serif;
+    color: #232323;
+    width: 10px !important;
+}
+.borda-matrix1 {
+    width: 10%;
+    border-collapse: collapse;
+}
 
-  
+.borda-matrix1 th,
+.borda-matrix1 td {
+    border: 2px solid #0a0a0a;
+    padding: 8px;
+    text-align: center;
+    width: 10px;
+}
+
+.borda-matrix1 th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.borda-matrix1 tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.borda-matrix1 tr:hover {
+    background-color: #f2f2f2;
+}
+
+.borda-matrix1 th,
+.borda-matrix1 td {
+    color: black;
+}
+
+.borda-matrix2 {
+    width: 10%;
+    border-collapse: collapse;
+}
+
+.borda-matrix2 th,
+.borda-matrix2 td {
+    border: 2px solid #0a0a0a;
+    padding: 8px;
+    text-align: center;
+    width: 10px;
+}
+
+.borda-matrix2 th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.borda-matrix2 tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.borda-matrix2 tr:hover {
+    background-color: #f2f2f2;
+}
+
+.borda-matrix2 th,
+.borda-matrix2 td {
+    color: black;
+}
+
+
+.borda-matrix3 th,
+.borda-matrix3 td {
+    border: 2px solid #0a0a0a;
+    padding: 8px;
+    text-align: center;
+    width: 10px;
+}
+
+.borda-matrix3 {
+    width: 10%;
+    border-collapse: collapse;
+}
+
+.borda-matrix3 th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.borda-matrix3 tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.borda-matrix3 tr:hover {
+    background-color: #f2f2f2;
+}
+
+.borda-matrix3 th,
+.borda-matrix3 td {
+    color: black;
+}
