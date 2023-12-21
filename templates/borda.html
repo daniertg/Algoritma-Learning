@@ -29,14 +29,16 @@
 </table>
 <button type="button" onclick="calculateValues()">Calculate</button>
 <br>
+<br>
 <div id="result"></div>
 <br>
 2. Memberikan bobot peringkat<br>
 <button type="button" onclick="borda_bobot()">Buat Tabel Bobot</button>
+<br>
+<br>
 <table class="peringkat_borda">
   <thead>
     <tr id="headerRow">
-      <th></th>
       <!-- Kolom Ke-n akan ditambahkan di sini -->
     </tr>
   </thead>
@@ -46,13 +48,19 @@
 </table>
 <br>
 3. Menentukan peringkat dan skor BORDA<br>
-<button type="button" onclick="save()">Borda Skor</button>
-
-<!-- Tabel untuk menampilkan hasil -->
-<table id="bordaScores">
-
+<table class="borda-matrix4">
+  <thead>
+    <tr>
+      <th>Peringkat</th>
+      <th>Alternatif</th>
+      <th>Skor</th>
+    </tr>
+  </thead>
+  <tbody id="bordaScores">
+    <!-- Baris-baris alternatif akan di-generate di sini -->
+  </tbody>
 </table>
-
+<button type="button" onclick="save()">Borda Skor</button>
 <script src="../static/js/borda.js"></script>
 
 {% endblock %}

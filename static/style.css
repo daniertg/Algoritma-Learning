@@ -443,7 +443,7 @@ h4 {
 .borda-matrix th,
 .borda-matrix td {
     border: 2px solid #0a0a0a;
-    padding: 8px;
+    padding: 5px;
     text-align: center;
     width: 10px;
 }
@@ -563,5 +563,66 @@ h4 {
 
 .borda-matrix3 th,
 .borda-matrix3 td {
+    color: black;
+}
+
+#tableBody3{
+    
+}
+.borda-matrix4 th,
+.borda-matrix4 td {
+    border: 2px solid #0a0a0a;
+    padding: 8px;
+    text-align: center;
+    width: 10px;
+}
+
+.borda-matrix4 {
+    width: 10%;
+    border-collapse: collapse;
+}
+
+.borda-matrix4 th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.borda-matrix4 tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.borda-matrix4 tr:hover {
+    background-color: #f2f2f2;
+}
+
+.borda-matrix4 th,
+.borda-matrix4 td {
+    color: black;
+}
+
+
+.peringkat_borda td {
+    border: 2px solid #0a0a0a;
+    padding: 1px;
+    text-align: center;
+    width: 10px;
+}
+
+.peringkat_borda {
+    width: 10%;
+    border-collapse: collapse;
+}
+
+
+.peringkat_borda tr:nth-child(even) {
+    background-color: #f9f9f9;
+    width: 10px;
+}
+
+.peringkat_borda tr{
+ 
+}
+
+.peringkat_borda td {
     color: black;
 }

@@ -41,6 +41,7 @@ function calculateValues() {
     const alternatifName = inputs[0].value;
 
     const jumlahPeringkat = Math.min(jumlahAlternatif, jumlahAlternatifInput.value);
+    console.log(jumlahAlternatif, jumlahAlternatifInput.value)
 
     const validInputs = Array.from(inputs).slice(1) // Mengambil input peringkat saja
       .filter(input => !isNaN(parseInt(input.value)) && parseInt(input.value) >= 1 && parseInt(input.value) <= jumlahPeringkat);
@@ -96,7 +97,6 @@ function borda_bobot() {
 function save() {
   const tbodyRows = document.querySelectorAll('.borda-matrix tbody tr'); // Memilih tbody dari tabel alternatif
   const resultDiv = document.getElementById('bordaScores');
-  resultDiv.innerHTML = '<strong>Hasil:</strong><br>';
 
   const jumlahAlternatifInput = document.getElementById('jumlahAlternatif');
   const jumlahAlternatif = parseInt(jumlahAlternatifInput.value);
@@ -125,6 +125,7 @@ function save() {
       const bobotInput = document.querySelectorAll('.peringkat_borda tbody tr td input')[i]; // Mengambil bobot dari tabel peringkat
       const bobot = parseInt(bobotInput.value);
       skor += frequency[i] * bobot;
+      console.log(frequency[0]);
     }
 
     // Menambah skor beserta nama alternatif ke dalam array
@@ -137,7 +138,13 @@ function save() {
   // Menampilkan hasil peringkat
   let ranking = 1;
   scores.forEach(alternatif => {
-    resultDiv.innerHTML += `${ranking}. ${alternatif.name}: ${alternatif.score}<br>`;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${ranking}</td>
+      <td>${alternatif.name}</td>
+      <td>${alternatif.score}</td>
+    `;
+    resultDiv.appendChild(row);
     ranking++;
   });
 }

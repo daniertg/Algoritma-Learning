@@ -12,15 +12,15 @@ function generateTable() {
     const cellNamaAlternatif = document.createElement('td');
     const inputNama = document.createElement('input');
     inputNama.setAttribute('id', `namaAlternatif${i}`);
-    inputNama.setAttribute('class', 'namaAlternatif'); // Tambahkan class di sini
+    inputNama.setAttribute('class', 'namaAlternatif'); 
     inputNama.setAttribute('placeholder', `Alternatif ${i}`);
     cellNamaAlternatif.appendChild(inputNama);
     row.appendChild(cellNamaAlternatif);
 
-    for (let j = 1; j < kolom; j++) { // Menambah input peringkat di setiap sel
+    for (let j = 1; j < kolom; j++) { 
       const cell = document.createElement('td');
       const input = document.createElement('input');
-      input.setAttribute('class', 'peringkat'); // Tambahkan class di sini
+      input.setAttribute('class', 'peringkat'); 
       cell.appendChild(input);
       row.appendChild(cell);
     }
@@ -28,8 +28,6 @@ function generateTable() {
     tableBody.appendChild(row);
   }
 }
-
-
 
 function bandingkan() {
   const tableBody2 = document.getElementById('tableBody2');
@@ -57,8 +55,9 @@ function bandingkan() {
       }
 
       // Tentukan pemenang berdasarkan peringkat
+      let pemenang = tentukanPemenang(bordaMatrix1[i], bordaMatrix1[j], namaAlternatif[i].value, namaAlternatif[j].value);
       const cellPemenang = document.createElement('td');
-      cellPemenang.textContent = bordaMatrix1[i][0] < bordaMatrix1[j][0] ? namaAlternatif[i].value : namaAlternatif[j].value;
+      cellPemenang.textContent = pemenang;
       row.appendChild(cellPemenang);
 
       tableBody2.appendChild(row);
@@ -68,6 +67,30 @@ function bandingkan() {
 }
 
 
+
+
+function tentukanPemenang(arr1, arr2, nama1, nama2) {
+  let win1 = 0;
+  let win2 = 0;
+
+  // Membandingkan semua indeks dalam array
+  for (let k = 0; k < arr1.length; k++) {
+    if (arr1[k] < arr2[k]) {
+      win1++;
+    } else if (arr1[k] > arr2[k]) {
+      win2++;
+    }
+  }
+
+
+  if (win1 > win2) {
+    return nama1;
+  } else if (win2 > win1) {
+    return nama2;
+  } else {
+    return "Seri";
+  }
+}
 
 function getBordaMatrix1() {
   const tableBody = document.getElementById('tableBody');
@@ -92,6 +115,7 @@ function getBordaMatrix1() {
 
 
 
+
 function hitungHasilBandingkan(bordaMatrix1, namaAlternatif) {
   const hasilBandingkan = {};
 
@@ -108,11 +132,11 @@ function hitungHasilBandingkan(bordaMatrix1, namaAlternatif) {
       }
 
       if (skorCopeland > 0) {
-        hasilBandingkan[namaAlternatif[j].value].skor++; // Memperbarui skor untuk pemenang
-        hasilBandingkan[namaAlternatif[i].value].skor--; // Memperbarui skor untuk yang kalah
+        hasilBandingkan[namaAlternatif[j].value].skor++; 
+        hasilBandingkan[namaAlternatif[i].value].skor--; 
       } else if (skorCopeland < 0) {
-        hasilBandingkan[namaAlternatif[i].value].skor++; // Memperbarui skor untuk pemenang
-        hasilBandingkan[namaAlternatif[j].value].skor--; // Memperbarui skor untuk yang kalah
+        hasilBandingkan[namaAlternatif[i].value].skor++; 
+        hasilBandingkan[namaAlternatif[j].value].skor--; 
       }
 
       hasilBandingkan[namaAlternatif[i].value].peringkat++;
