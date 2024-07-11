@@ -1,9 +1,10 @@
+
+from ..static import electre_four as ef
+from ..static.caesar_cipher import caesar_encode, caesar_decode
 from flask import Flask, request, render_template, redirect, url_for, send_file, jsonify
 from PIL import Image
 import os
-from static import electre_four as ef
 import json
-from static.caesar_cipher import caesar_encode, caesar_decode
 import pandas as pd
 import numpy as np
 app = Flask(__name__)
