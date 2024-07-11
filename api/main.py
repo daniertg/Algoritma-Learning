@@ -1,13 +1,16 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from flask import Flask, request, render_template, redirect, url_for, send_file, jsonify
 from PIL import Image
-import os
-from static import electre_four as ef
 import json
-from static.caesar_cipher import caesar_encode, caesar_decode
 import pandas as pd
 import numpy as np
+from static import electre_four as ef
+from static.caesar_cipher import caesar_encode, caesar_decode
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 @app.route('/')
 def home():
@@ -21,13 +24,13 @@ def png_to_jpg():
         if file and file.filename != "":
             img = Image.open(file)
             img = img.convert("RGB")  # Convert to RGB format
-            img.save("static/images/output.jpg", "JPEG")
+            img.save(os.path.join(app.static_folder, "images/output.jpg"), "JPEG")
             converted = True
     return render_template('png_to_jpg.html', converted=converted)
 
 @app.route('/download_image')
 def download_image():
-    return send_file('static/images/output.jpg', as_attachment=True)
+    return send_file(os.path.join(app.static_folder, 'images/output.jpg'), as_attachment=True)
     
 @app.route('/electre_four')
 def electre_four():
@@ -35,7 +38,6 @@ def electre_four():
 
 @app.route('/post_electre_four', methods=["POST"])
 def post_electre_four():
-    
     matrix = request.form.get('matrix')
     weight = request.form.get('weight')
     
@@ -48,7 +50,6 @@ def post_electre_four():
 
 @app.route('/post_csv_electre', methods=["POST"])
 def post_csv_electre():
-        
     csv_file = request.files['csv_file']
     data = pd.read_csv(csv_file, header=None)
     
@@ -127,12 +128,9 @@ def post_borda():
 
     return jsonify({'message': 'success', 'result': result})
 
-
-    
 @app.route('/copeland')
 def view_copeland():
     return render_template("copeland.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
-
