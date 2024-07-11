@@ -29,7 +29,7 @@ function generateTable() {
 }
 
 function calculateValues() {
-  const tbodyRows = document.querySelectorAll('tbody tr');
+  const tbodyRows = document.querySelectorAll('tbody tr:not([data-ignore=true])'); // Mengabaikan elemen dengan atribut data-ignore
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = '<strong>Hasil:</strong><br>';
 
@@ -41,16 +41,18 @@ function calculateValues() {
     const alternatifName = inputs[0].value;
 
     const jumlahPeringkat = Math.min(jumlahAlternatif, jumlahAlternatifInput.value);
-    console.log(jumlahAlternatif, jumlahAlternatifInput.value)
 
     const validInputs = Array.from(inputs).slice(1) // Mengambil input peringkat saja
       .filter(input => !isNaN(parseInt(input.value)) && parseInt(input.value) >= 1 && parseInt(input.value) <= jumlahPeringkat);
 
-    const frequency = Array.from({ length: jumlahPeringkat }, () => 0); // Array untuk menyimpan frekuensi peringkat
+    const frequency = Array.from({ length: jumlahPeringkat }, () => 0);
+    // console.log(frequency)
+    // Array untuk menyimpan frekuensi peringkat
 
     validInputs.forEach(input => {
       const value = parseInt(input.value);
       frequency[value - 1]++;
+      console.log(frequency)
     });
 
     resultDiv.innerHTML += `${alternatifName}:<br>`;
@@ -81,11 +83,13 @@ function borda_bobot() {
 
   // Logic untuk membuat cell inputan pada tabel tablePeringkat
   var tr = document.createElement('tr');
+  tr.setAttribute('data-ignore', 'true'); // Tambahkan atribut data-ignore pada baris yang dibuat
   for (var k = 0; k < jumlahAlternatif; k++) {
     var td = document.createElement('td');
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
-    input.setAttribute('id', 'bobotInput_' + k); // Tambahkan ID yang unik
+    input.setAttribute('id', 'bobotInput_' + k);
+    input.style.width = '50px'; // Tambahkan ID yang unik
     td.appendChild(input);
     tr.appendChild(td);
   }
@@ -94,9 +98,12 @@ function borda_bobot() {
 }
 
 
+
 function save() {
   const tbodyRows = document.querySelectorAll('.borda-matrix tbody tr'); // Memilih tbody dari tabel alternatif
   const resultDiv = document.getElementById('bordaScores');
+  
+  resultDiv.innerHTML = '';
 
   const jumlahAlternatifInput = document.getElementById('jumlahAlternatif');
   const jumlahAlternatif = parseInt(jumlahAlternatifInput.value);
