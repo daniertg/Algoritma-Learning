@@ -1,16 +1,15 @@
-import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from flask import Flask, request, render_template, redirect, url_for, send_file, jsonify
-from PIL import Image
 import json
+from flask import Flask, request, render_template, send_file, jsonify
+from PIL import Image
 import pandas as pd
 import numpy as np
-from static import electre_four as ef
-from static.caesar_cipher import caesar_encode, caesar_decode
 
-app = Flask(__name__, template_folder="../templates", static_folder="../static")
+# Mengimpor modul dari folder static dengan jalur relatif
+from ..static.electre_four import initiation as electre_initiation
+from ..static.caesar_cipher import caesar_encode, caesar_decode
+
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -22,16 +21,19 @@ def png_to_jpg():
     if request.method == "POST":
         file = request.files["image"]
         if file and file.filename != "":
-            img = Image.open(file)
-            img = img.convert("RGB")  # Convert to RGB format
-            img.save(os.path.join(app.static_folder, "images/output.jpg"), "JPEG")
-            converted = True
+            try:
+                img = Image.open(file)
+                img = img.convert("RGB")  # Convert to RGB format
+                img.save("../static/images/output.jpg", "JPEG")
+                converted = True
+            except Exception as e:
+                print(f"Error: {e}")
     return render_template('png_to_jpg.html', converted=converted)
 
 @app.route('/download_image')
 def download_image():
-    return send_file(os.path.join(app.static_folder, 'images/output.jpg'), as_attachment=True)
-    
+    return send_file('../static/images/output.jpg', as_attachment=True)
+
 @app.route('/electre_four')
 def electre_four():
     return render_template("electre_four.html")
@@ -40,35 +42,25 @@ def electre_four():
 def post_electre_four():
     matrix = request.form.get('matrix')
     weight = request.form.get('weight')
-    
     matrix = json.loads(matrix)
     weight = json.loads(weight)
-    
-    result = ef.initiation(matrix, weight)
-    
+    result = electre_initiation(matrix, weight)
     return jsonify({'message': 'success', 'result': result})
 
 @app.route('/post_csv_electre', methods=["POST"])
 def post_csv_electre():
     csv_file = request.files['csv_file']
     data = pd.read_csv(csv_file, header=None)
-    
     if data.shape[1] == 1:
         data_temp = []
-        
         for i in range(len(data)):
             data_split = str(data.iloc[i].values).replace('[', '').replace(']', '').strip("'").split(';')
             data_temp.append(data_split)
-
         data = pd.DataFrame(data_temp)
-    
-    if type(data[0][0]) == str:
+    if isinstance(data[0][0], str):
         data = data.drop(0, axis=0)
-    
     data_list = data.values.tolist()
-    
     result = data_list
-    
     return jsonify({'message': 'success', 'result': result})
 
 @app.route('/Caesar_Cipher')
@@ -81,34 +73,28 @@ def result():
         text = request.form['inputText']
         shift = int(request.form['shiftAmount'])
         operation = request.form['operation']
-
         result_text = ''
         if operation == 'encode':
             result_text = caesar_encode(text, shift)
         elif operation == 'decode':
             result_text = caesar_decode(text, shift)
+        return render_template('caesar_cipher.html', result=result_text)
 
-        return render_template('caesar_cipher.html', result=result_text)  
-    
 @app.route('/borda')
 def view_borda():
     return render_template("borda.html")
 
 def calculate_borda_score(alternatif_names, frequencies, bobot_peringkat):
     results = []
-
     for i in range(len(frequencies)):
         frequency = frequencies[i]
         bobot = bobot_peringkat[i]
-
         skor = sum([freq * bobot for freq, bobot in zip(frequency, bobot)])
-
         result = {
             'Alternatif Name': alternatif_names[i],
             'Skor': skor
         }
         results.append(result)
-
     return results
 
 @app.route('/post_borda', methods=['POST'])
@@ -116,16 +102,9 @@ def post_borda():
     alternatif_names = request.form.getlist('alternatifNames[]')
     frequencies = [json.loads(freq) for freq in request.form.getlist('frequencies[]')]
     bobot_peringkat_raw = request.form.getlist('bobotPeringkat[]')
-
-    # Mengubah string JSON kembali menjadi list/array
     bobot_peringkat = [json.loads(item) for item in bobot_peringkat_raw]
-
-    # Lakukan perhitungan Borda dengan fungsi calculate_borda_score
     data_to_process = calculate_borda_score(alternatif_names, frequencies, bobot_peringkat)
-    
-    # Ubah data_to_process ke format yang diharapkan oleh JavaScript
     result = [{'Alternatif Name': item['Alternatif Name'], 'Skor': item['Skor']} for item in data_to_process]
-
     return jsonify({'message': 'success', 'result': result})
 
 @app.route('/copeland')
